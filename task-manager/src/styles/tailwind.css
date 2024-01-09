@@ -1,12 +1,9 @@
-/* src/index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-/* Reset some default styles */
-body, h1, h2, h3, h4, p {
-  margin: 0;
-  padding: 0;
-}
+/* Your additional styles go here */
 
-@import './styles/tailwind.css';
 
 body {
   margin: 0;

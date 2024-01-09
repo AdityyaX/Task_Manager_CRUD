@@ -48,44 +48,38 @@ const TaskForm = ({ addTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto bg-white p-6 rounded-md shadow-md">
+      <label className="block mb-4">
         Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full mt-1 p-2 border rounded" />
       </label>
-      <br />
-      <label>
+      <label className="block mb-4">
         Description:
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full mt-1 p-2 border rounded" />
       </label>
-      <br />
-      <label>
+      <label className="block mb-4">
         Due Date:
-        <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+        <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="w-full mt-1 p-2 border rounded" />
       </label>
-      <br />
-      <label>
+      <label className="block mb-4">
         Priority:
- 
-        <select value={priority} onChange={handlePriorityChange} >
+        <select value={priority} onChange={handlePriorityChange} className="w-full mt-1 p-2 border rounded">
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
       </label>
-      <br />
-
-      <label>
+      <label className="block mb-4">
         Task Status:
-        <select value={status} onChange={handleStatusChange}>
+        <select value={status} onChange={handleStatusChange} className="w-full mt-1 p-2 border rounded">
           <option value="">Select...</option>
-          <option value="completed">Ongoing</option>
+          <option value="Completed">Completed</option>
           <option value="not completed">Not Completed</option>
         </select>
       </label>
-      <br />
-      <button type="submit">Add Task</button>
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">Add Task</button>
     </form>
+
   );
 };
 

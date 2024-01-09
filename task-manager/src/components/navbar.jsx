@@ -7,9 +7,9 @@ const Navbar = () => {
     <nav className="bg-black p-4">
     <div className="container mx-auto flex items-center justify-between">
       <div className="text-white font-bold text-xl">Task Manager</div>
-      <div className="space-x-4">
+      {/* <div className="space-x-4">
        
-      </div>
+      </div> */}
     </div>
   </nav>
   </>

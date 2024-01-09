@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
-import './tailwind.css'; 
-
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
@@ -22,14 +22,30 @@ const App = () => {
     setTasks(updatedTasks);
   };
 
-  const updateTask = (updatedTasks) => {
-    
+  const updateTask = (taskId, updatedTask) => {
+   
+    if (!Array.isArray(tasks)) {
+      console.error('Error: tasks is not an array.');
+      return;
+    }
+  
+   
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+  
+    if (taskIndex === -1) {
+      console.error(`Error: Task with id ${taskId} not found.`);
+      return;
+    }
+  
+   
+    const updatedTasks = [...tasks];
+    updatedTasks[taskIndex] = { ...updatedTasks[taskIndex], ...updatedTask };
+  
+    // Sort the array
     const sortedTasks = updatedTasks.sort((a, b) => {
-    
       const dueDateA = a.dueDate ? new Date(a.dueDate) : null;
       const dueDateB = b.dueDate ? new Date(b.dueDate) : null;
   
-    
       if (dueDateA && dueDateB) {
         const dueDateComparison = dueDateA - dueDateB;
         if (dueDateComparison !== 0) {
@@ -37,23 +53,25 @@ const App = () => {
         }
       }
   
-    
       return a.priority.localeCompare(b.priority);
     });
   
     setTasks(sortedTasks);
   };
+  
+  
   return (
-<>
-
-    <div className="flex items-center justify-center h-screen ">
-    <div className="container mx-auto p-4 center">
-      <h1 className="text-3xl font-bold mb-4">Task Manager</h1>
-      <TaskForm addTask={addTask} />
-      <TaskList tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
-    </div>
-    </div>
+    <>
+      <Navbar />
+      <div className="flex flex-col bg-gray-200 min-h-screen">
+        <div className="container mx-auto p-4 flex flex-col sm:flex-row justify-between mt-20">
+          <TaskForm addTask={addTask} />
+          <TaskList tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
+        </div>
+      </div>
+      <Footer/>
     </>
+
   );
 };
 export default App;

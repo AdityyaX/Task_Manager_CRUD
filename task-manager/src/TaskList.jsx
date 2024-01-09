@@ -2,28 +2,38 @@ import React from 'react';
 
 const TaskList = ({ tasks, deleteTask, updateTask }) => {
   return (
-    <ul>
+    <ul className="divide-y divide-gray-300">
       {tasks.map((task) => (
-        <li key={task.id}>
-          <div>
-            <strong>Title:</strong> {task.title}
+        <li key={task.id} className="py-4">
+          <div className="mb-2">
+            <strong className="text-blue-600">Title:</strong> {task.title}
           </div>
-          <div>
-            <strong>Description:</strong> {task.description}
+          <div className="mb-2">
+            <strong className="text-blue-600">Description:</strong> {task.description}
           </div>
-          <div>
-            <strong>Due Date:</strong> {task.dueDate}
+          <div className="mb-2">
+            <strong className="text-blue-600">Due Date:</strong> {task.dueDate}
           </div>
-          <div>
-            <strong>Priority:</strong> {task.priority}
+          <div className="mb-2">
+            <strong className="text-blue-600">Priority:</strong> {task.priority}
           </div>
-          <div>
-            <strong>Status:</strong> {task.status}
+          <div className="mb-2">
+            <strong className="text-blue-600">Status:</strong> {task.status}
           </div>
-          <button onClick={() => deleteTask(task.id)}>Delete</button>
-          <button onClick={() => updateTask(task.id, { ...task, status: 'Completed' })}>
-            Mark as Completed
-          </button>
+          <div className="flex space-x-4">
+            <button
+              onClick={() => deleteTask(task.id)}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => updateTask(task.id, { ...task, status: 'Completed' })}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+              Mark as Completed
+            </button>
+          </div>
         </li>
       ))}
     </ul>
