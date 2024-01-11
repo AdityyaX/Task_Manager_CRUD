@@ -9,6 +9,11 @@ const TaskForm = ({ addTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!title || !dueDate || !priority || !status) {
+      console.error('Please fill in all required fields.');
+      return;
+    }
     const newTask = {
       id: new Date().getTime(),
       title,
@@ -21,8 +26,8 @@ const TaskForm = ({ addTask }) => {
     setTitle('');
     setDescription('');
     setDueDate('');
-    setPriority('');
-    setStatus('');
+    setPriority('low');
+    setStatus('not completed');
   };
 
   const handleStatusChange = (e) => {
@@ -41,14 +46,14 @@ const TaskForm = ({ addTask }) => {
 
     
     if (selectedPriority === 'low' || selectedPriority === 'medium' || selectedPriority === 'high') {
-      setStatus(selectedPriority);
+      setPriority(selectedPriority);
     } else {
       console.log('Invalid Priority. Please select either "completed" or "not completed".');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto bg-white p-6 rounded-md shadow-md">
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto bg-white p-6 rounded-md shadow-md ml-4">
       <label className="block mb-4">
         Title:
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full mt-1 p-2 border rounded" />
@@ -69,9 +74,11 @@ const TaskForm = ({ addTask }) => {
           <option value="high">High</option>
         </select>
       </label>
+      {console.log(priority)}
       <label className="block mb-4">
         Task Status:
         <select value={status} onChange={handleStatusChange} className="w-full mt-1 p-2 border rounded">
+   
           <option value="">Select...</option>
           <option value="Completed">Completed</option>
           <option value="not completed">Not Completed</option>
