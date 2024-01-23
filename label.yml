@@ -1,0 +1,28 @@
+name: Labeler
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Apply labels from associated issues
+        run: |
+          ISSUE_NUMBER=$(curl -s ${{ github.event.pull_request.issue_url }} | jq -r '.number')
+          LABELS=$(curl -s ${{ github.event.repository.issues_url }}/{$ISSUE_NUMBER}/labels | jq -r 'map(.name) | join(",")')
+
+          if [ -n "$LABELS" ]; then
+            echo "Applying labels to pull request: $LABELS"
+            gh pr edit ${{ github.event.number }} --add-labels "$LABELS"
+          else
+            echo "No labels found on associated issue."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
