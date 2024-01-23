@@ -1,6 +1,9 @@
 name: Labeler
 
 on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
   pull_request:
     types:
       - opened
@@ -9,7 +12,7 @@ jobs:
   label:
     runs-on: ubuntu-latest
 
-     steps:
+    steps:
       - name: Check out code
         uses: actions/checkout@v2
 
@@ -18,8 +21,6 @@ jobs:
           ISSUE_NUMBER=$(curl -s https://api.github.com/repos/AdityyaX/Task_Manager_CRUD/issues/2 | jq -r '.number')
           echo "Issue Number: $ISSUE_NUMBER"
 
-
       - name: Fetch labels from the issue
         run: |
-          LABELS=$(curl -s "${{ github.event.repository.issues_url }}/${ISSUE_NUMBER}/labels" | jq -r 'map(.name) | join(",")')
-          echo "Labels: $LABELS"
+          LABELS=$(curl -s "${{ github.event
