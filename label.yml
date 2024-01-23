@@ -1,0 +1,27 @@
+name: Labeler
+
+on:
+  push:
+    branches:
+      - main
+      - dev  # Adjust the branch name as needed
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Extract issue number
+        run: |
+          ISSUE_NUMBER=$(curl -s https://api.github.com/repos/AdityyaX/Task_Manager_CRUD/issues/2 | jq -r '.number')
+          echo "Issue Number: $ISSUE_NUMBER"
+
+      - name: Fetch labels from the issue
+        run: |
+          LABELS=$(curl -s "${{ github.event
